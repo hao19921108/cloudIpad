@@ -69,14 +69,18 @@ function reloadEverything(){
 
 }
                 
-let reloadExperience = setInterval(reloadEverything,5000);
+// let reloadExperience = setInterval(reloadEverything,5000);
 
                 
                        
                 
                 
                 
-        var netSpeed = navigator.connection.downlink;
+      //  var netSpeed = navigator.connection.downlink;
+                
+                
+                        var netSpeed = 4;
+
                 
               //  var networkSpeed = 10; // ideal network range 0.5 - 5                 
                 
@@ -1237,15 +1241,7 @@ function backgroundchange( enabled ){
                render();
 
                 
-    
-function getCurrentTime(){
-    var d = new Date();
-  console.log(utcToLocalTime(d));
-}
-                
-            
-                getCurrentTime();
-                
+
            
 function getWeather(){
     
