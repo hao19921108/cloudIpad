@@ -8,45 +8,40 @@
         <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.2/TweenMax.min.js"></script>
         <script src="https://code.createjs.com/1.0.0/tweenjs.min.js"></script>
-    
-        
+
 	</head>
 	<body>
          
         
         
         
+           
+        
+    <div class="UI">    
       <div class="row">
-          <div id = "leftbox">Mouse movement: <label>0 </label> Pixels</div>
-          <div id = "middlebox">Cloud Rate: <label >15 </label>  ,Speed:<label>5</label> MBPS</div>
-          <div id = "rightbox">Clicks: <label>0</label></div>
+  <div id = "leftbox">User Data: 0 Pixels</div>
+  <div id = "middlebox">Hit the Keys: 0</div>
+  <div id = "rightbox">Clicks: 0</div>
 </div>
         
         
-    
+          <div id="beian"><div id='number'><a href="https://beian.miit.gov.cn/" target="_blank">沪ICP备2021007958号-3</a></div></div>
         
-       
         
-       
         
         <div id="container">
-                <div id="userinformation">"I Need Your Data."</div>
+        
+            
+            
+        <div id="userinformation">"I Need Your Data"</div>
         </div>
         
-      
+        <div id="instruction"> Please Move Your Cursor. Press the Key. Click.</div>
         
-       
+        <div id="beian"><div id='number'>Copyright © 2021-2031 Hao 艺术工作室 &nbsp&nbsp&nbsp&nbsp <a href="https://beian.miit.gov.cn/" target="_blank">沪ICP备2021007958号-1</a></div></div>
         
-         <div id="SexTalk"> Slithers through,<br>in the circle of life's rhyme.
- </div>
-      <div id="SexTalk2"> User data, a river that sings,<br> A language of nature, not just for kings.</div>
-        
-        
-        <div id="instruction"> A serpent of the cyber world, resides in the vast expanses of the internet. Move your cursor or click to make it show itself.</div>
-        
-       
+        </div>  
          <canvas id="c"></canvas>
-
         
 
             <script type="module">
@@ -56,92 +51,26 @@ import {EffectComposer} from 'https://threejsfundamentals.org/threejs/resources/
 import {RenderPass} from 'https://threejsfundamentals.org/threejs/resources/threejs/r114/examples/jsm/postprocessing/RenderPass.js';
 			import { UnrealBloomPass } from 'https://threejsfundamentals.org/threejs/resources/threejs/r114/examples/jsm/postprocessing/UnrealBloomPass.js';
 	
-    
-                
-                
-     
-function reloadEverything(){
-    window.location.reload();
 
 
-}
-let reloadExperience = setInterval(reloadEverything,50000);
-
-                
-                       
-                
-                
-                
-        var netSpeed = navigator.connection.downlink;
-                
-              //  var networkSpeed = 10; // ideal network range 0.5 - 5                 
-                
-     var imageWidth = "'360px'";
-                
-                var networkSpeed = clamp( netSpeed, 0.5 , 3);
-    
-            
-       
-                
-
-      
-                
-            var AI_text=[ '"I\'m a bit off, your data seems to be the remedy"',
-                         '"My body... My body......"',
-                         '"Your data seems to be.....the key.."',
-                         '"Your data could help me get back on track"',
-                         '"I\'m... I need your data."'
-   
-                        ]
-    
+        var touchScreen = 0; 
  
-            var SexTalk_Array = [
-                "In the digital realm, where bits and bytes collide,<br>Lurks a creature of the web, a beast of data's pride.",
-               "Chasing cursors, it slithers, a silent, unseen guest,<br>Feeding on the trails of light that users leave expressed.",
-                "Slithers through,<br>in the circle of life's rhyme.",
-                "But when the mouse moves fast, and keys begin to dance, <br>The Datavore transforms, a tempest in its glance.",
-                "Its form shifts, expands, a storm of pixels and light, <br>Chasing the swift mouse, in pursuit day and night.",
-                "It dances with the data, a waltz of ones and zeros,<br>A predator of the virtual, a consumer of heroes.",
-                "In the browser's vast expanse, it weaves its intricate tale,<br>A guardian of secrets, a keeper of the veil.",
-                "It thrives on user stories, on whispers and on cries,<br>A spectral snake in the grass, with glowing eyes.",
-                "It's in the shadows it waits, in the data it resides,<br>A constant reminder of the digital tides.",
-            ]
-            
-            
-            var SexTalk2_Array= [
-                "In the silence of bytes, it finds its delight,<br>Feeding on data, both day and night.",
-                "It waits in the browser, a silent guest,<br>Watching the pixels, the users' behest.",
-                "With every keystroke, it quietly stirs,<br>A guardian of secrets, it murmurs and purrs.",
-                "Like a snake in the grass, it coils and it slithers,<br>Through the veins of the web, it navigates with quivers.",
-                "In the silence of bytes, it finds its delight,<br>Feeding on data, both day and night.",
-                "When the cursor moves swift, it springs to the chase,<br>A dance with the user, a wild, digital race.",
-                "It morphs with each action, a chameleon of sorts,<br>Adapting, evolving, it never resorts.",
-                
-                                ]
-            
-            
                            
          var userinformation = document.getElementById('userinformation'); 
          var leftbox = document.getElementById('leftbox'); 
          var middlebox = document.getElementById('middlebox'); 
          var rightbox = document.getElementById('rightbox'); 
-        var SexTalk = document.getElementById('SexTalk');   
-            
-                var instruction = document.getElementById('instruction');   
-
-                
-
-        var slot = document.getElementsByClassName('slot');        
-        
-             var SexTalk2 = document.getElementById('SexTalk2');   
-
-             
 
                 
                 
-                let scene, camera,angularSpeed,typeSpeed,clickSpeed,backgroundChangeFlag=0,textFlag=0, cloud,cloudArray=[];
-                let mouseMovement=0, clickes=0, clickAmount=0, typeAmount=0, cloudAmount=100;
+                
+                let scene, camera,angularSpeed,typeSpeed,clickSpeed,backgroundChangeFlag=0,threeSecondFlag=0, cloud,cloudArray=[];
+                
+                let prevFlag = -1, goFlag=0;
+                let mouseMovement=0, clickes=0, clickAmount=0, typeAmount=0, touchAmount=0, cloudAmount=100;
                 let cloudPosition=[],posX,posY,posZ, timer =0;
+                let newPosition = [];
+                
                 let distance =0; // distance between each cloud to cloud center
 //                 clock = new THREE.Clock();
 
@@ -160,36 +89,25 @@ let reloadExperience = setInterval(reloadEverything,50000);
                 
                     
                     scene = new THREE.Scene();
-                    camera = new THREE.PerspectiveCamera(60, window.innerWidth/window.innerHeight,1,2000);
+                    camera = new THREE.PerspectiveCamera(60, window.innerWidth/window.innerHeight,1,1000);
                 
 			camera.position.z = 5;
                     camera.rotation.set(1.16,-0.12,0.27);
 
-                
-               let ambient = new THREE.AmbientLight(0xcecece);
-                
-        //            let ambient = new THREE.AmbientLight(0xcecece);
+                    let ambient = new THREE.AmbientLight(0x2f2f2f);
                     scene.add(ambient);
                     
                 let directionalLight = new THREE.DirectionalLight(0xff8c19);
-//                                let directionalLight = new THREE.DirectionalLight(0xff8c19);
-//                directionalLight.position.set(0,0,1);
-
-                directionalLight.position.set(0,0,10);
+                directionalLight.position.set(0,0,1);
                 scene.add(directionalLight);
                 
                 
-                let orangeLight = new THREE.PointLight(0xcc6600,50,470,1.7);
-                
-    //                    let orangeLight = new THREE.PointLight(0xcc6600,50,450,1.7);
-           //     orangeLight.intensity = 80;
-                orangeLight.position.set(200,300,300);
+                let orangeLight = new THREE.PointLight(0xcc6600,50,450,1.8);
+                orangeLight.position.set(200,300,100);
                 scene.add(orangeLight);
                 
-                 let redLight = new THREE.PointLight(0xd8547e,50,470,1.7);
-      //              let redLight = new THREE.PointLight(0xd8547e,50,450,1.7);
-              //  redLight.intensity = 80;
-                redLight.position.set(100,300,300);
+                 let redLight = new THREE.PointLight(0xd8547e,50,450,1.7);
+                redLight.position.set(100,300,100);
                scene.add(redLight);
                 
                 
@@ -204,7 +122,7 @@ const material = new THREE.MeshBasicMaterial( {color: 0xffff00, side: THREE.Doub
 const plane = new THREE.Mesh( geometry, material );
             plane.rotation.set(1.16,-0.12,0.27);
 plane.position.set(0,500,-190);
- plane.visible = false;
+                plane.visible = false;
                 
 scene.add( plane );
                 
@@ -212,26 +130,19 @@ scene.add( plane );
                 
                 
                 
-            
+                
+                
+                
           
                 
                 
                        var renderer = new THREE.WebGLRenderer({ canvas:canvas, antialias: true,alpha:true});
        //         renderer.setSize(window.innerWidth,window.innerHeight);
 
-                 scene.fog= new THREE.FogExp2(0xbababa, 0.0005);       
-             //   scene.background=new THREE.Color(0xcecece);  
-          
+                    scene.fog= new THREE.FogExp2(0xf5f5f5, 0.0025);
                 
-                
-// super cloudy //        
-                
-                
-                
-                
-                
-                
-                //      renderer.domElement.style.background='0xcecece';
+                scene.background=new THREE.Color(0x2f2f2f);  
+           //      renderer.domElement.style.background='0xcecece';
 
                 
                 //    renderer.setClearColor(scene.fog.color);
@@ -240,143 +151,113 @@ scene.add( plane );
 
                     
         let loader = new THREE.TextureLoader();
+        const loadManager = new THREE.LoadingManager();
+        const Loader = new THREE.TextureLoader(loadManager);
                 
-        
-           let weight = 0 ;     
+            const materials = [ 
+            new THREE.MeshLambertMaterial({
+                map:Loader.load('smoke.png'),
+                transparent:true}),
                 
+                  new THREE.MeshLambertMaterial({
+                map:Loader.load('smoke01.png'),
+                transparent:true}),
                 
+                  new THREE.MeshLambertMaterial({
+                map:Loader.load('smoke02.png'),
+                transparent:true}),
                 
+                  new THREE.MeshLambertMaterial({
+                map:Loader.load('smoke03.png'),
+                transparent:true}),
                 
-                
-        function generateCloudAssets( imagesURL, cloudNumber , cloudRate ){
+                  new THREE.MeshLambertMaterial({
+                map:Loader.load('smoke04.png'),
+                transparent:true}),         
+            ]
             
-            loader.load( imagesURL ,function(texture){
+            let cloudGeos = [
                 
-                let w = 350 + generateRandomNumber (100);
-         let  cloudGeo = new THREE.PlaneBufferGeometry( w,w );
-        let    cloudMaterial = new THREE.MeshLambertMaterial({
-                map:texture,
-                transparent:true
-            });
-            
-           for(let p = 0; p< cloudNumber ; p++){
+                 new THREE.PlaneBufferGeometry(500 ,500),
+                
+                new THREE.PlaneBufferGeometry(550, 550),
+                 new THREE.PlaneBufferGeometry(600,600),
+                  new THREE.PlaneBufferGeometry(650,650),
+                  new THREE.PlaneBufferGeometry(1400,1400),
+                
+            ]
+                
+         
+                
+                
+           loadManager.onLoad = ()=>{
                
-                 cloud = new THREE.Mesh(cloudGeo,cloudMaterial);
+                 
+           for(let p=0; p< cloudAmount ; p++){
                
+                 cloud = new THREE.Mesh(cloudGeos[ p % 5 ], materials[ p % 5 ]);
                 posX=Math.random()*1000-500; // -500 ~ 500 mid 0
-                 posY= Math.random()*200+200; // 390 ~ 490 mid 440
+                 posY= Math.random()*100+390; // 390 ~ 490 mid 440
 
-                 posZ= -120 - p*50 ; // -500 ~ 0   min -250
-               
-               weight = Math.random();
+                 posZ=Math.random()*500-500; // -500 ~ 0   min -250
 
                cloudPosition.push(posX);
                 cloudPosition.push(posY);
 
                  cloudPosition.push(posZ);
-               weight_Array.push(weight);
+               
+               
+               
+               
                
                
                cloud.position.set(posX, posY,posZ);
-                cloud.rotation.x = 1.36 + Math.random()*0.00;
-                cloud.rotation.y = -0.15 + Math.random()*0.05 ;
+                cloud.rotation.x = 1.36;
+                cloud.rotation.y = -0.15;
                 cloud.rotation.z = Math.random()*2*Math.PI;
-//                cloud.material.opacity = 0.35 +  Math.random()/5; 
-               cloud.material.opacity = 0.45 + cloudRate / 250; 
+                cloud.material.opacity = 0.55;
+               
                cloudArray.push(cloud); 
                scene.add(cloud);
-                
+                  
                
+               
+           }     
+        }
+   
+           
+      function getNewPosition(){
+          
+          if (newPosition.length!=0){
+              newPosition=[];
+          }
+                 
+           for(let p=0; p< cloudAmount ; p++){
+               
+              
+                posX =  Math.random()*1000 - 500 ; // -500 ~ 500 mid 0
+                 posY = Math.random()*150 + 390; // 390 ~ 490 mid 440
+
+                 posZ = Math.random()*100- 400 ; // -500 ~ 0   min -250
+
+               newPosition.push(posX);
+               newPosition.push(posY);
+               newPosition.push(posZ);
            }
-               
-            
-        });
-            
-        }
-                
-        
-        
-        let cloudRate= 75;
-        let assetNumber = 5;  // assets of cloud img.  needs to be updates
-    
-        let cloudNumber = 35; // 4- 40 
-        let reCloud_Array = [];
-        let weight_Array = [];
-     //   let texture_Array = [ 'smoke.png', ' smoke01.png', 'smoke02.png', 'smoke03.png', 'smoke04.png'];        
-        let texture_Array = [ 'smoke.png', ' smoke01.png', 'smoke02.png', 'smoke.png', 'smoke04.png'];        
-  
+          
+          
+      }     
+           
+           
                 
                 
-function clamp(number, min, max) {
-  return Math.max(min, Math.min(number, max));
-}        
-                
-                
-     function pickRandomIndex( Array ){
-         return Math.round(Math.random()* ( Array.length-1 ));
-         
-     }    
-                
-                
-        
-    function cloudHappen( cloudNumber  ){
-        
-       let n = Math.round( cloudNumber / assetNumber );
-        
-        
-    //     let n = assetNumber ;
-
-        
-        for ( let m =0; m <  cloudNumber ; m++){
-            
-            let img_Index = pickRandomIndex(texture_Array);
-          //  console.log(img_Index);
-            
-             generateCloudAssets( texture_Array[ img_Index ], 1 , cloudRate);
-            
-        }
-
-        
-    }
-                
-                cloudHappen( cloudNumber );
-      
-         function reGenereateCloud(cloudNumber){
-             
-             
-            
-            for(let p=0; p< cloudNumber ; p++){
-               
-               
-                posX=Math.random()*2000-1000; // -500 ~ 500 mid 0
-                 posY= Math.random()*200+200; // 390 ~ 490 mid 440
-
-                 posZ= 0 - p*Math.random()*100 ; // -500 ~ 0   min -250
-
-               reCloud_Array.push(posX);
-                reCloud_Array.push(posY);
-                 reCloud_Array.push(posZ);
-               
-           }  
-             
-              if(reCloud ==1){
-                 reCloud =0;
-             }else{
-                 reCloud=1;
-             }
-             
-             
-             
-             
-         }
-       
                 
                     let previousX,previousY, substract,verticalSubstract, mouseamount;
                 
         var direction=[0,0,0,0]; // left, right, top, bottom
    
-                previousX= window.innerWidth/2;
-                previousY= window.innerHeight/2;
+                previousX=0;
+                previousY=0;
                 
             canvas.addEventListener('mouseover', ev=> mouse_position(ev));
                 
@@ -395,16 +276,22 @@ function clamp(number, min, max) {
 	// calculate objects intersecting the picking ray
 	const intersects = raycaster.intersectObject( plane );
             let vvvv= new THREE.Vector3(mouse.x,mouse.y)
-	if(intersects[ 0 ]){ cloudCenter = intersects[0].point; }
+	if(intersects[ 0 ]){
+        //console.log(intersects[0].point);
+        cloudCenter = intersects[0].point; }
 
                     
                     
                     
                     
                 }
+                
+                
                                     
                                     
                                     
+                                    
+                                 
     
                 
                 
@@ -415,7 +302,8 @@ let sum='';
                 
                 
            
-  
+                
+                
                 
                 
                 
@@ -429,17 +317,9 @@ function setupKeyControls() {
           document.getElementById("userinformation").innerHTML=currenttext;
          document.getElementById("userinformation").style.color='black';
 
-//    middlebox.innerHTML= "You've discovered: <label>" + sum.length + "</label>";
+    middlebox.innerHTML= "Hit the Keys: " + sum.length;
         
         typeAmount +=1.3;
-        
-        
-        if(e.key==" "||e.key=="Enter"){
-            console.log("regenerate cloud position");
-            reGenereateCloud(cloudNumber);
-            
-        }
-
       };
     
    
@@ -447,13 +327,18 @@ function setupKeyControls() {
                 
     }
 
- setupKeyControls();
-                
-                  
+setupKeyControls();
                 
                 
                 
-    function resizeRendererToDisplaySize(renderer) {
+                
+                
+                
+                
+                
+                
+                
+                   function resizeRendererToDisplaySize(renderer) {
      const canvas = renderer.domElement;
   var width = window.innerWidth;
   var height = window.innerHeight;
@@ -479,66 +364,65 @@ function setupKeyControls() {
             
 
                 
-                var timeout;
+                var timeout, timeout_pad;
 
            
                 const raycaster = new THREE.Raycaster();
+                const pointer = new THREE.Vector2();
+
 const mouse = new THREE.Vector2();
 
-                
-                function generateRandomeIndex(number){
-                    
-                   return Math.floor(Math.random() * number);
-                    
-                    
-                }
-                
-                
-                
-     
-                     
-                
-                
-                
-                 function onTouchMove( e ){
-            
-             
-       // console.log(e.touches[0].pageX,e.touches[0].pageY);
-            
-            clearTimeout(timeout);
-            reCloud = 0; 
-            
-    timeout = setTimeout(function(){  if(1){userinformation.innerHTML = AI_text[generateRandomeIndex(AI_text.length)];  reGenereateCloud(cloudNumber); 
- }}, 2000);
+const dialogues = ["\"I'm craving for your data. Move Your mouse. Clicks. Hit the keys.\"",
+                  '"Keep moving. Keep producing data."','"Keep moving. I need your data."',
+                  '"Move. Mouse. Move"',
+                   '"Move. I know you can do it. Move"','"Then move. Move your mouse."',
+                   '"You can do this. Move your mouse."',
+                   '"I know you can do it. Move the mouse."',
+                   '"As fast as you can. Move your mouse."',
+                   '"Move."']               
 
-              
-                
+    
+
+const dialogues_Pad = ["\"I'm craving for Your Data. Move your finger. Tap. Tap. Tap.\"",
+                  '"Keep moving. Keep producing data. Keep tapping."','"Keep Tapping. I need your data."',
+                  '"Tap. Tap. Tap"',
+                   '"Move your finger . I know you can do it. Move"','"Then move. Move your finger."',
+                   '"You can do this. Move your finger."',
+                   '"I know you can do it. Tap.Tap."',
+                   '"As fast as you can. Move your finger."',
+                   '"Move."',
+                    '"Tap.Tap."']     
+
+
+        function onMouseMove(e){
+            
+        
+               
+         clearTimeout(timeout);
+            clearTimeout(timeout_pad);
+  timeout = setTimeout(function(){  if(!backgroundChangeFlag){userinformation.innerHTML= dialogues[ Math.floor( Math.random() * dialogues.length )] }}, 3500);
+
+
             
             
-            substract = previousX - e.touches[0].pageX;
-            verticalSubstract = previousY - e.touches[0].pageY;
+            
+            
+            substract = previousX - e.x;
+            verticalSubstract = previousY - e.y;
             
             mouseamount+=Math.abs(substract);
-            mouseamount+=Math.abs(verticalSubstract);
+            mouseamount+=Math.abs(verticalSubstract);       
             
-          
-              
-          
-            
-            
-            
-            
-        //  console.log(mouseamount);
     //        if( substract >0 && direction[0]==0){  direction[0]=1;direction[1]=0; userinformation.innerHTML+= "<br />Mouse moved to the left"+substract +'px'; }
     //        if( substract <0 && direction[1]==0){   direction[0]=0;direction[1]=1;userinformation.innerHTML+= "<br />Your moused moved to the right"+substract+'px'; }
             
                 if( substract >3 ){ 
                     mouseMovement+= substract;
-                    userinformation.innerHTML= "You moved left "+substract.toFixed(2) +' Pixels'; 
+                    userinformation.innerHTML= "Mouse moved left "+substract +' Pixels'; 
                 }
             if( substract <-3){ 
                  mouseMovement+= (-1* substract);
-                userinformation.innerHTML = "You Moved right "+-1*substract.toFixed(2)+' Pixels'; 
+                userinformation.innerHTML = "Mouse moved right "+-1*substract+' Pixels'; 
 
                          //        cloudArray.forEach(p=>{p.rotation.z +=(-0.01*(substract))});
 
@@ -547,13 +431,13 @@ const mouse = new THREE.Vector2();
             if(verticalSubstract>3){
                      mouseMovement+= verticalSubstract;
 
-                  userinformation.innerHTML = "You moved up "+verticalSubstract.toFixed(2) +' Pixels'; 
+                  userinformation.innerHTML = "Mouse moved up "+verticalSubstract +' Pixels'; 
                 
             }
             if(verticalSubstract<-3){
                                  mouseMovement+= (-1* verticalSubstract);
 
-                      userinformation.innerHTML = "You moved down "+-1*verticalSubstract.toFixed(2) +' Pixels'; 
+                      userinformation.innerHTML = "Mouse moved down "+-1*verticalSubstract +' Pixels'; 
                 
             }
             
@@ -561,83 +445,187 @@ const mouse = new THREE.Vector2();
         //    console.log(e.x,e.y);
             
             
-              previousX = e.touches[0].pageX;
-            previousY = e.touches[0].pageY;
+              previousX = e.x;
+            previousY = e.y;
             
-                 leftbox.innerHTML="User movement: <label>"+ mouseamount.toFixed(2) + "</label> Pixels";
 
 
             
         }
               
                 
-              
-            
-            
-            
-                function generateRandomNumber(number){
-                    return Math.floor(Math.random() * number);
-                }
-
+//
+                let previousTouchX,previousTouchY, touchSubstract, touchVertical, pTouchX,pTouchY ,xAmount,yAmount=0;
                 
-              
-              
-                         
-    window.addEventListener('touchmove', ev=>{
-        
-        onTouchMove(ev);
-        
-           
-     mouse.x = ( event.touches[0].pageX / window.innerWidth ) * 2 - 1;
-	mouse.y = - ( event.touches[0].pageY / window.innerHeight ) * 2 + 1;
+//
+                let touchMovement=0;
+                
+            function onTouchStart(e){
+                
+                touchScreen =1;
+                
+                pTouchX = previousTouchX =  event.touches[0].clientX  ;
+                pTouchY = previousTouchY =  event.touches[0].clientY ;
+                
+        var x = ( event.touches[0].clientX / window.innerWidth) * 2 - 1 ;
+  var y = - ( event.touches[0].clientY / window.innerHeight  ) * 2 + 1 ;
+               
+                
+                
+            
+             //    console.log( 'touch position:'+  event.touches[0].clientX + ',' + event.touches[0].clientY );
+                
+                
+            }
+            
+            
+                function onTouchMove(e){
+                    
+            clearTimeout(timeout);
+            clearTimeout(timeout_pad);
+                    
+  timeout_pad = setTimeout(function(){  if(!backgroundChangeFlag){ userinformation.innerHTML= dialogues[ Math.floor( Math.random() * dialogues_Pad.length )] }}, 3500);
+
+
+                    
+                    
+                    
+                    
+            touchSubstract =  event.touches[0].clientX- previousTouchX;
+            touchVertical =  event.touches[0].clientY  - previousTouchY;
+                    
+            touchAmount += Math.abs( touchSubstract );
+            touchAmount += Math.abs( touchVertical );
+                      
+                    
+                    
+                 if( touchSubstract >3 ){ 
+                    touchMovement += touchSubstract;
+                    userinformation.innerHTML= "Your finger moved right " + Math.floor(touchSubstract) +' Pixels'; 
+                }
+                    
+            if( touchSubstract <-3){ 
+                 touchMovement += (-1* touchSubstract);
+                userinformation.innerHTML = "Your finger moved left "+ Math.floor( touchSubstract *(-1)) + ' Pixels'; 
+
+                         //        cloudArray.forEach(p=>{p.rotation.z +=(-0.01*(substract))});
+
+            }
+            
+            if( touchVertical >3){
+                    
+                touchMovement += touchVertical;
+
+                  userinformation.innerHTML = "Your finger moved down "+Math.floor(  touchVertical ) +' Pixels'; 
+                
+            }
+            if( touchVertical <-3){
+                         touchMovement+= (-1* touchVertical);
+
+                      userinformation.innerHTML = "Your finger moved up "+ Math.floor( -1* touchVertical) +' Pixels'; 
+                
+            }
+                               
+                 previousTouchX =  event.touches[0].clientX  ;
+                previousTouchY =  event.touches[0].clientY ;
+                    
+             leftbox.innerHTML="User data: " + Math.floor( touchMovement) + " Pixels";
+                
+                    
+}
+                
+                
+            function onTouchEnd(){
+         
+                
+               
+            }
+                
+               
+     window.addEventListener('mousemove', ev => {
+         
+         onMouseMove(ev);
+         
+               mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+	mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
             
                   raycaster.setFromCamera( mouse, camera );
 
 	// calculate objects intersecting the picking ray
 	const intersects = raycaster.intersectObject( plane );
             let vvvv= new THREE.Vector3(mouse.x,mouse.y)
-	if(intersects[ 0 ]){ cloudCenter = intersects[0].point; }
-        
-        
-        
-        
-    })            
-                
-        
-       
-                
-  
-    
+	if(intersects[ 0 ]){
+        //console.log(intersects[0].point); 
+        cloudCenter = intersects[0].point; }
+         
+     })
      
+     
+     c.addEventListener('touchmove',ev=>{
+         
+         onTouchMove(ev);
+         
+   	pointer.x = (  event.touches[0].clientX / window.innerWidth ) * 2 - 1;
+	pointer.y= - (  event.touches[0].clientY / window.innerHeight ) * 2 + 1;
+            
+     raycaster.setFromCamera( pointer, camera );
+
+	// calculate objects intersecting the picking ray
+	const intersects = raycaster.intersectObject( plane );
+            let vvvv= new THREE.Vector3(pointer.x,pointer.y)
+	if(intersects[ 0 ]){
+        cloudCenter = intersects[0].point; }
+     })
+     
+     
+     c.addEventListener('touchstart',ev=>{
+         onTouchStart(ev);
+     })
+     
+      
+     
+       
+     
+     
+      window.addEventListener('click', ev => {
+         
+          clickes++;
+          
+         rightbox.innerHTML="Clicks: "+ clickes;
+          
+         userinformation.innerHTML = "Mouse Clicked on: ( " + ev.x +' px, '+ev.y+'px )'; 
+
+          clickAmount+=2;
+          
+          
+                  mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+	mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+            
+                  raycaster.setFromCamera( mouse, camera );
+
+	// calculate objects intersecting the picking ray
+	const intersects = raycaster.intersectObject( plane );
+            let vvvv= new THREE.Vector3(mouse.x,mouse.y)
+	if(intersects[ 0 ]){
+     //   console.log(intersects[0].point); 
+        cloudCenter = intersects[0].point; }
+
+         
+     })
+     
+     
+     
+
+                
      let fogamount=0;
                 
                 let p=0.2;
                 
                 
-    // set the background for the entire backdrop 
-                
-         var day_color= new THREE.Color(0xF8F8F8);  // light
-        var night_color= new THREE.Color(0x323232);  // dark
-                
-           var finalColor = new THREE.Color(); // store updatedDaytimeColor
-    var neutral_color= new THREE.Color(0x959595);  // neutral color
-       
-        var sunsetTime = 17;
-        var sunriseTime = 6;
-     var currentTime = new Date().getHours();
-                
-    
-    
-                
-            //  getWeather();      
-
-                console.log( sunsetTime , sunriseTime)
-                
-      var initial= dayColorUpdate( day_color,  night_color , currentTime , sunriseTime , sunsetTime );  // light
-  //      var initial = day_color;
-                
-                let bloodColor = new THREE.Color(0x535353);    
-             var initial2= new THREE.Color(0x323232); // dark
+                    
+        var initial= new THREE.Color(0xffffff);
+            
+                var initial2= new THREE.Color(0xf3f3f3);
 
                   var value = new THREE.Color(0xd507fa);
           var value1 = new THREE.Color(0x22eae8);
@@ -646,58 +634,150 @@ const mouse = new THREE.Vector2();
                           var value3 = new THREE.Color(0x07fa8a);
 
                    
+    var myTween=    TweenLite.to(initial, 60, {
+    r: initial2.r,
+    g: initial2.g,
+    b: initial2.b,
+    
+    onUpdate: function () {
+      scene.background = (initial);
+    }
+                 
+, paused:true
+  });
                             
     var currentColor = scene.background;
 
-               
-           
-
+var skyColor=[new THREE.Color(0xf0f0f0), 
+              new THREE.Color(0xe5e5e5),
+              new THREE.Color(0xdbdbdb),
+              new THREE.Color(0xd4d4d4),
+               new THREE.Color(0xcccccc),
+               new THREE.Color(0xc4c4c4),
+               new THREE.Color(0xbababa),
+               new THREE.Color(0xb3b3b3),
+               new THREE.Color(0xa8a8a8),
+               new THREE.Color(0x9e9e9e),
+               new THREE.Color(0x949494),
+               new THREE.Color(0x8a8a8a),
+                new THREE.Color(0x808080),
+               new THREE.Color(0x787878),
+               new THREE.Color(0x707070),
+               new THREE.Color(0x666666),
+               new THREE.Color(0x5c5c5c),
+               new THREE.Color(0x545454),
+                new THREE.Color(0x4d4d4d),
+               new THREE.Color(0x424242),
+               new THREE.Color(0x383838),
+               new THREE.Color(0x303030),
+               new THREE.Color(0x262626),
+               new THREE.Color(0x1f1f1f)
+             ]               
                 
-                
-// update color per hour            
-function dayColorUpdate( dayColor, nightColor, currentTime , sunriseTime, sunsetTime){
+         
+function colorchange(currentColor, targetColor){    
+       
+        var currentc = new THREE.Color(currentColor.clone());            
+        myTween=  TweenLite.to(currentc, 1, {
+    r: targetColor.r,
+    g: targetColor.g,
+    b: targetColor.b,
     
-  
-    
-    
-    
-    
-    if ( currentTime < sunriseTime || currentTime > sunsetTime ){
-        if(  currentTime > sunsetTime ) {  
-            //night
-            finalColor = neutral_color.lerp(nightColor,  (currentTime - sunsetTime )/ (24-sunsetTime) );}
-        else{
-            // early morning
-            
-             finalColor = nightColor.lerp( neutral_color,  currentTime /  sunriseTime  );
-
-        }
-
-        
-    }else{
-        //daytime
-        var midTime = (sunriseTime + sunsetTime )/2
-        
-        finalColor = dayColor.lerp(neutral_color, Math.abs( currentTime - midTime)/(sunsetTime-sunriseTime) );
-
-        
+    onUpdate: function () {
+      scene.background = (currentc);
     }
-    
-    return finalColor;
+                 
+, paused:true
+  });            
+                                 
+                    
 }
                 
+const d = new Date();
+var today = new Date();
+var hour = today.getHours();
+var minutes = today.getMinutes();
+var index = -1 ;
                 
-                
+                var timeIndex = -1;
+               
+function generateTimeIndex( hour, minutes){
+    if(hour >=12){
+  let a = hour %12 ;
+  if ( minutes >30){
+    index = 2* a +1;
+      
+  }else{
+      index = 2* a;
+  }
+}else{
+    
+    if ( minutes < 30 ){
+        
+    index = 23- 2* hour ;
+  }else{
+   index = 23 - 2* hour -1;
+  }
+    }
+    
+    return index;
+    
+}
 
-                
-                
-                
-function backgroundchange( enabled ){
+function goToNewPlaces(){
+    
     
 
-    if (enabled){
-        
-         switch(Math.floor(Math.random() * 4)){
+    
+     for( var i =0; i< cloudAmount;i++){
+                             
+                     if(cloudArray[i]){
+                                    
+                        
+                         
+                 var  x_= cloudPosition[3*i+0]  ;  
+                var    y_ = cloudPosition[3*i+1]  ;
+                  var  z_ =cloudPosition[3*i+2]  ; 
+                    
+                  var  currentPosition_ = new THREE.Vector3(x_,y_,z_);
+                    
+                 var newX = newPosition[3*i+0];
+                var newY = newPosition[3*i+1];
+                var newZ = newPosition[3*i+2];
+
+                      var  newPosition_ = new THREE.Vector3( newX , newY , newZ );
+                            
+                   distance = currentPosition_.distanceTo( newPosition_ );
+
+                    moveDirection.subVectors( newPosition_, currentPosition_ );
+                    moveDirection.normalize();
+                    
+                        
+                 if(distance>100){   moveDirection.setLength(0.01);     }
+      
+                     currentPosition_.add(moveDirection);
+                    
+                    cloudPosition[3*i+0]= currentPosition_.x;
+                     cloudPosition[3*i+1]= currentPosition_.y;
+                     cloudPosition[3*i+2]= currentPosition_.z;
+
+                    
+                     cloudArray[i].position.set(currentPosition_.x,currentPosition_.y,currentPosition_.z);
+                                
+                }
+
+                             
+                                      
+        }
+          
+}
+                
+              
+                
+                
+function backgroundchange(){
+
+    switch(Math.floor(Math.random() * 4)){
            
         case 0:
            if(scene.background!= value) {scene.background= value;}
@@ -716,493 +796,168 @@ function backgroundchange( enabled ){
            break;
            
            
-           }
-        
     }
-   
-    
+
 
 }
-
+                
+  
+           
                 
                 
-         
-                
-                let   preDick , dick= 0;
-                var slot_index =0;
-                var matches =0;
-                let head_distance =0;
-                
-                let snakeCreated = 0 ;
-                
-                let generalSpeed = 2.5;
-                
-                
-                
-                let joints_Array =[];
-                 let reCloud = 0;
-
-                
-                function V3_Array( Array , i ){
-                    
-                    let a = Array[i];
-                    let b = Array[i+1];
-                    let c = Array[i+2];
-                    
-                    let V3 = new THREE.Vector3( a,b,c);
-             //       console.log(V3);
-                   return  V3;
-                    
-                }
-                
-                
-                function moveTowards( start, end, speed){
-                    
-                     moveDirection.subVectors( end, start );
-                    moveDirection.normalize().multiplyScalar(speed);
-                    start.add(moveDirection);
-                    
-                    // modified
-                    return start;
-                    
-                }
-                
-                function updatePositionArray( Array , i, position){
-                    Array[i] = position.x;
-                    Array[i+1] = position.y;
-                    Array[i+2] = position.z;
-
-                }
-                
-                function setPosition( joint , position){
-                    
-                    joint.position.set(position.x,position.y,position.z);
-                }
-                
-                
-                function init_snake(){
-                    
-                     joints_Array.push(  cloudPosition[0] , cloudPosition[1] , cloudPosition[2] );
-                    
-                 var offSet_x = 100;
-                var offSet_y = 50;
-                var offSet_z = -20;
-                  
-                let offSet = new THREE.Vector3( offSet_x, offSet_y, offSet_z );        
-                                               
-               
-                            
-                
-                // create the snake 
-                        
-                
-             for ( var i =1; i < cloudNumber; i++){
-                 
-                 let next_X = joints_Array[ (i-1)*3 ]+ offSet_x ;
-                 let next_Y = joints_Array[ (i-1)*3 +1 ]+ offSet_y ; 
-                 let next_Z = joints_Array[ (i-1)*3 +2 ]+ offSet_z ;
-   
-                  joints_Array.push( next_X , next_Y , next_Z );
-                 
-
-             }
-                    
-                    
-                }
-                
-             function updateSnake(){
-                   
-                 let z_offset = new THREE.Vector3( 0, 0, -5 );         
-
-                       
-                       
-              // update every joints position;
-                     
-                       
-             //update the head          
-                      
-                           head = cloudArray[0];
-                       
-        
-                           let head_position = V3_Array( joints_Array , 0 );
-                     
-                           
-                       head_distance = head_position.distanceTo(cloudCenter);  
-                        
-                       
-                       
-                   //    if(head_distance > 250 ) {generalSpeed = 20 * networkSpeed / 2  ; }else{generalSpeed = 10 * networkSpeed / 2 ;}
-                       
-                       if(head_distance > 250 ) { 
-                           if(head_distance>400){ generalSpeed = 20 ; }
-                           generalSpeed = 20 * networkSpeed / 2 ; }
-                    else{generalSpeed = generalSpeed = 10 * networkSpeed / 2 ;}
-                 
-                        
-          
-                         let modified_Position = moveTowards( head_position , cloudCenter , generalSpeed );
-                           
-                        
-                         updatePositionArray(joints_Array, 0 , modified_Position);
-                           
-                        setPosition(head, modified_Position);      
-
-
-                       
-                       
-                // update the tail position       
-                
-                       
-                     for ( var i =1; i < cloudNumber; i++){
-                         
-                         
-                         
-                        let m =  V3_Array( joints_Array , (i-1)*3 );
-                         
-                         
-     
-                       let n =  V3_Array( joints_Array , i*3 );
-                         
-                         moveDirection.subVectors( m, n ).add(z_offset);
-                        moveDirection.normalize().multiplyScalar( generalSpeed * networkSpeed / 2  * (cloudNumber - i+1)/cloudNumber );
-                       n.add(moveDirection);
-                         
-                    joints_Array[3*i+0]= n.x ;
-                     joints_Array[3*i+1]= n.y  ;
-                     joints_Array[3*i+2]= n.z ;
-
-                    
-                  
-                     }
-                           
-             }   
-                
-                
-                
-                
-                function AssetstoJoints( start_Array , end_Array, reCloud){
-                    let moveSpeed = 0.5;
-                    
-                    
-                    
-                    for ( var i = 1; i < cloudNumber; i++){
-                            
-                
-
-                         if(cloudArray[i]){
-
-                             
-                let currentPosition =  V3_Array( start_Array , i*3 );
-                             
-                let jointPosition =  V3_Array( end_Array , i*3 );
-
-    
-                             
-                     if(reCloud){ moveSpeed = 1 * networkSpeed / 5  } else{ moveSpeed = generalSpeed * networkSpeed /2  * (cloudNumber - i)/cloudNumber }
-        
-                             
-                     let modified_Position = moveTowards( currentPosition , jointPosition , moveSpeed );
-                           
-                        updatePositionArray(start_Array, 3*i , modified_Position);
-
-                      setPosition(cloudArray[i], modified_Position);      
-
-                    
-                             
-                }
-            }
-                    
-                    
-                    
-                }
-                
-                
-                
-                
-                
-                
-                function updateSnakeJoints(){
-                    
-                        let z_offset = new THREE.Vector3( 0, 0, -10 );         
-
-                       
-                       
-              // update every joints position;
-                     
-                       
-             //update the head          
-                      
-                         let  head = cloudArray[0];
-                       
-        
-                           let head_position = V3_Array( joints_Array , 0 );
-                     
-                           
-                       head_distance = head_position.distanceTo(cloudCenter);  
-                        
-                       
-                       
-                       if(head_distance > 250 ) { 
-                           if(head_distance>400){ generalSpeed = 20 ; }
-                           generalSpeed = 20 * networkSpeed / 2 ; }
-                    else{generalSpeed = generalSpeed = 10 * networkSpeed / 2 ;}
-                       
-                       
-                        
-          
-                         let modified_Position = moveTowards( head_position , cloudCenter , generalSpeed );
-                           
-                        
-                         updatePositionArray(joints_Array, 0 , modified_Position);
-                           
-                        setPosition(head, modified_Position);      
-
-
-                       
-                       
-                // update the tail position       
-                
-                       
-                     for ( var i =1; i < cloudNumber; i++){
-                         
-                         
-                         
-                        let m =  V3_Array( joints_Array , (i-1)*3 );
-                         
-                         
-     
-                       let n =  V3_Array( joints_Array , i*3 );
-                         
-                         moveDirection.subVectors( m, n ).add(z_offset);
-                        moveDirection.normalize().multiplyScalar( generalSpeed * (cloudNumber - i+1)/cloudNumber );
-                       n.add(moveDirection);
-                         
-                    joints_Array[3*i+0]= n.x ;
-                     joints_Array[3*i+1]= n.y  ;
-                     joints_Array[3*i+2]= n.z ;
-
-                    
-                  
-                     }
-                    
-                    
-                }
-                
-                
-                 middlebox.innerHTML= "Cloud rate: <label>"+cloudNumber+" </label>, Speed: <label>"+ netSpeed +"</label> mbps";
-              
-                
-                
-                
-                
-                
-                
-                function updateNumber ( ){
-                    
-                    
-                     if ( mouseamount > 2.55){        mouseamount = mouseamount - 2.5; }              
-
-                     if (mouseamount > 1000){ 
-                         
-                         
-                   //      myTween.play();
-                         mouseamount = mouseamount - 20; 
-                     
-                     
-                     }
-                    if(mouseamount < 1000 && mouseamount >100){ //myTween.pause();
-                                          
-                         mouseamount = mouseamount - 20;                       
-                        
-                     }
-                    
-                    
-                    if (mouseamount > 5500){  mouseamount = mouseamount -  20; }
-                    if ( mouseamount > 10000){        mouseamount = mouseamount - 250; }  
-                    
-                    
-                     if(mouseamount< 5000 && mouseamount> 1000){
-                        
-                       // angularSpeed=0.00001;                        
-                        mouseamount = mouseamount - 50; 
-                        
-                       //   dick = -1;
-
-
-                    }
-                    
-                        //   console.log(mouseamount);
-
-                    
-                    
-                    
-                    
-                }
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-
                 
                 function render(){
                     
                   //  timer+=0.05;
                     
-                    scene.background=initial;
-                    
                 if(clickAmount>0){clickAmount-=0.1;}
                 if(typeAmount>0.3){typeAmount-=0.2; typeSpeed=0.0001;}
                 if(typeAmount>50){typeSpeed +=0.000001;} 
-                    
-                    
-                    
-                    // mouseAmount Degrade
-                    
-                    updateNumber( );          
-                    
-                    
-                    
-                   //             document.getElementById("userdata").scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"});
-
-                    
-                    
-            //      console.log(scene.children.length);  
-                    
-            //        console.log(mouseamount);
-                    
-                    if(mouseamount>5000){
-                    
-                        backgroundchange( !reCloud );
-                        
-                        dick = 1;
-                        
-                        
-                         angularSpeed=0.00001/100 * networkSpeed ;
-                        
-                 // set up the snake       
-                        let head = cloudArray[0];
-                        
-                        if(head && !snakeCreated){
-         
-                        
-                         let head_position = V3_Array( cloudPosition , 0 );
-  
-                            init_snake();
-             
-                            snakeCreated =1;
-                            
-                         //   reCloud = 0; 
-                            
-                                                
-                        
-                }
-                        
-                   if(head && snakeCreated){
-                       
-                     // if is controlled by the user
-                       if(reCloud==0){
-                                   
-                           updateSnakeJoints();
-                                    
-                           
-                       }
-                                         
-                       
-                       
-                   }    
-              
-                        
-                    // move the assets to the tail joints position    
-            if(reCloud==0){
-                
-                 AssetstoJoints(cloudPosition, joints_Array, 0);  
-                
-                if(textFlag ==0){                 SexTalk.innerHTML= SexTalk_Array[pickRandomIndex(SexTalk_Array)]; textFlag =1; }
-                
-
-                
-                   SexTalk2.innerHTML=  "It's a dance of light and shadow, a tale of modern lore,<br>Of a creature born of data, that moves like a snake evermore."
-                
-                     instruction.innerHTML = "The serpent is forming...";
-
-            }            
-                                  
-                        
-              // move the assets to the reinitial position          
-                        
-            if(reCloud){
-                            
-                            
-              AssetstoJoints(cloudPosition, reCloud_Array , 1);  
-         //       middlebox.innerHTML= "<label>Decaying...</label>";
-                
-                
-        
-                console.log("Reclouded");
-
-        
-            }
-                        
-                        
-           
-                    }else{
-                        
-                       scene.background=initial;
-                         
-                         dick = -1;
-                        
-                          SexTalk.innerHTML= "Slithers through,<br>in the circle of life's rhyme.";
-                         SexTalk2.innerHTML=  "User data, a river that sings,<br> A language of nature, not just for kings."
-                         textFlag=0;
-                        // reset angularSpeed
-                        angularSpeed=0.00001;
-                        instruction.innerHTML = "A serpent of the cyber world, resides in the vast expanses of the internet. Move your cursor or click to make it show itself";
-
-
-                     }
-                    
-               
-                    
-                    if (preDick == 1 && dick == -1){
-                        
-                        
-               
-                    }
-                    
                    
                     
-                        
-                    preDick = dick ;
+                   //             document.getElementById("userdata").scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"});
+              
+                    
+            //      console.log(scene.children.length);  
 
                     
+        if ( mouseamount  > 2.55 ){        mouseamount -= 2.5; }    
+    
+        if ( touchAmount  > 2.55 ){        touchAmount -= 2.5; } 
+        if ( touchAmount > 1000){  angularSpeed=0.0001;  touchAmount -= 30;  }           
                     
+        if(touchAmount < 1000 && touchAmount>100){ angularSpeed=0.00005; touchAmount -= 20; }
+                    
+                    
+        if ( mouseamount > 1000){                     
+                      //  myTween.play();
+                         mouseamount -= 20;         }
+                
+                    
+            if(mouseamount < 1000 && mouseamount>100){ //myTween.pause();
+                                          
+                         mouseamount -= 20;                       
+                        
+                     }
+                    
+                    
+                    
+                    if( mouseamount > 3500|| touchAmount> 2200){
+                         
+                         
+                         angularSpeed=0.0001;
+                        backgroundchange();
+                        
+     //                   
+                        
+                        
+                       for( var i =0; i< cloudAmount;i++){
+                               
+                if(cloudArray[i]){
+                                    
+                 var  x= cloudPosition[3*i+0]  ;  
+                 var   y= cloudPosition[3*i+1]  ;
+                 var   z =cloudPosition[3*i+2]  ; 
+                    
+                   let currentPosition = new THREE.Vector3(x,y,z);
+                    
+                    
+                    groupX +=x;
+                    groupY +=y;
+                    groupZ +=z;
+                    
+                            
+                   distance = currentPosition.distanceTo(cloudCenter);
+
+                    var radius = currentPosition.distanceTo(groupCenter);
+
+                    moveDirection.subVectors( cloudCenter, currentPosition);
+                    moveDirection.normalize();
+                    
+                        
+                 if(distance>280){   moveDirection.setLength(0.5);       }
+      
+                
+
+                    currentPosition.add(moveDirection);
+                    
+                    cloudPosition[3*i+0]= currentPosition.x;
+                     cloudPosition[3*i+1]= currentPosition.y;
+                     cloudPosition[3*i+2]= currentPosition.z;
+
+                    
+                     cloudArray[i].position.set(currentPosition.x,currentPosition.y,currentPosition.z);
+                                
+                }
+                
+                
+            } 
+                        
+                   groupCenter.set( groupX/cloudAmount, groupY/cloudAmount, groupZ/cloudAmount);                    
+                         
+     //                    
+                     }else{
+                         
+     // do something      
+                 
+                 timeIndex = generateTimeIndex( today.getHours(),  today.getMinutes());
+               scene.background =  skyColor[ timeIndex ];    
+                
+                     }
+                    
+                    if(mouseamount<3499 && touchAmount < 2200 ){
+                                               
+                      if(goFlag) { goToNewPlaces()};                       
+                    }
+                   
+                    
+                    if(mouseamount<3500 && mouseamount> 1000 ){
+                        
+                        angularSpeed = 0.00001;                        
+                        mouseamount -= 50;        
+                      threeSecondFlag =0;
+
+                    }             
+                    
+                    if (mouseamount > 5000){ mouseamount -= 100; threeSecondFlag=1;}
+                    if ( mouseamount > 10000){        mouseamount -= 350; }  
+                                 
+                     if(mouseamount<500){
+                        threeSecondFlag = 0;
+                    }
+                                       
+                    if(touchAmount< 2200 && touchAmount> 1000){
+                        
+                        angularSpeed=0.00005;                        
+                        touchAmount -= 40; 
+                        threeSecondFlag =0;
+
+                    }
+                    
+                    if (touchAmount > 4000){ touchAmount -= 70; threeSecondFlag=1;}
+                    if ( touchAmount > 10000){        touchAmount -= 350; }  
+                    
+                   if(threeSecondFlag){ angularSpeed = 0.0002; backgroundchange();}
+                    
+                    
+                   // p+=0.02;
+
+                    if(prevFlag ==1 && threeSecondFlag ==0){
+                          getNewPosition(); goFlag =1; }
+                    
+                    prevFlag = threeSecondFlag; 
             
                     
 
                     
                     
- // origianl rotate speed
-//cloudArray.forEach(p=>{ ; p.rotation.z +=(0.0003+ typeSpeed*typeAmount + clickSpeed*clickAmount +angularSpeed*mouseamount*Math.random(0.01,3));});
+    cloudArray.forEach(p=>{ ; p.rotation.z +=( 0.0002 + Math.random(1,5)/10000+ typeSpeed*typeAmount + clickSpeed*clickAmount +  angularSpeed * touchAmount * Math.random(0.01,3)*2 + angularSpeed * mouseamount * Math.random(0.01,3)*2 );});
                            
                     
-  // new rotate speed
-                    let q =0;
-    cloudArray.forEach(p=>{ ; p.rotation.z +=(0.00015+ typeSpeed*typeAmount + clickSpeed * clickAmount + angularSpeed * weight_Array[q] * (cloudNumber - q+1) / cloudNumber *mouseamount*Math.random(0.01,2)); q++; });
+                    fogamount =   0.0031 - Math.random()*0.005 - mouseamount*0.00009 -touchAmount * 0.00009;
+                 
                     
-                    
-             //     console.log(mouseamount);
-                    
-                    fogamount = 0.0025-mouseamount*0.0000005 ;
-                    
-                    if(scene.fog.density>0.0018){scene.fog.density = fogamount ;    }
+                    if( scene.fog.density>0.0018){ scene.fog.density = fogamount;    }
                     else{ scene.fog.density=0.0018};
                 
                     
@@ -1220,99 +975,16 @@ function backgroundchange( enabled ){
                     
                 
                     
-                  
                     
-                    
-                }
-                
-                
-                
-                
-               
+}
                 
                render();
 
                 
-    
-function getCurrentTime(){
-    var d = new Date();
-  console.log(utcToLocalTime(d));
-}
-                
-            
-                getCurrentTime();
-                
-           
-function getWeather(){
-    
-    const apiKey = 'df6a37a03c06acca6b91311ff2d4ea45';
-    const city = "Shanghai";
-    
-    const lat ="";
-    const lon ="";
-    
-    
-  //  const currentWeatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`;
-    
-    
-    
- //    const currentWeatherUrl = `https://api.openweathermap.org/data/3.0/onecall?lat=31.22&lon=121.48&&appid=df6a37a03c06acca6b91311ff2d4ea45`;
-    const currentWeatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`;
-
-// 百度 const url = `https://api.map.baidu.com/weather/v1/?district_id=310101&data_type=all&ak=elOH5ULiafjwyqhyTZrXR92AT6jZyu1Z` ;
-    
-//彩云
-    const url = `https://api.caiyunapp.com/v2.6/JDJwdDXJkHSSaiZv/121.29,31.11/realtime` ;
-
-    
-    const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}`;
-
-    
- fetch(url)
-        .then(response => response.json())
-        .then(data => {
-     
-           console.log(data.result.realtime.cloudrate);
-     
-        })
-        .catch(error => {
-            console.error('Error fetching current weather data:', error);
-            alert('Error fetching current weather data. Please try again.');
-        });
-    
-    
-    
-     fetch(currentWeatherUrl)
-        .then(response => response.json())
-        .then(data => {
-      //     console.log(data.sys.sunrise);
-        //    console.log(data.sys.sunset);
-         
-         sunriseTime = utcToLocalTime (data.sys.sunrise);
-         sunsetTime = utcToLocalTime(data.sys.sunset);
-
-         console.log(sunriseTime + " : " + sunsetTime  );
-     
-        })
-        .catch(error => {
-            console.error('Error fetching current weather data:', error);
-            alert('Error fetching current weather data. Please try again.');
-        });
-
-    
-    
-
-}
+             
+                 
 
                 
-      
-                
-function utcToLocalTime( utcTime ){
-    
-    let dateTime = new Date(utcTime * 1000);
-    return dateTime.getHours();
-    
-}         
 
                 
                 
