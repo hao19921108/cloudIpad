@@ -45,6 +45,10 @@
         <div id="instruction"> A serpent of the cyber world, resides in the vast expanses of the internet. Move your cursor or click to make it show itself.</div>
         
        
+        
+        
+        
+        
          <canvas id="c"></canvas>
 
         
@@ -63,9 +67,9 @@ import {RenderPass} from 'https://threejsfundamentals.org/threejs/resources/thre
 function reloadEverything(){
     window.location.reload();
 
-
 }
-let reloadExperience = setInterval(reloadEverything,50000);
+                
+let reloadExperience = setInterval(reloadEverything,5000);
 
                 
                        
@@ -583,7 +587,7 @@ const mouse = new THREE.Vector2();
               
               
                          
-    window.addEventListener('touchmove', ev=>{
+    c.addEventListener('touchmove', ev=>{
         
         onTouchMove(ev);
         
