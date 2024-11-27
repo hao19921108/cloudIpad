@@ -38,12 +38,11 @@
         
        
         
-         <div id="SexTalk"> Slithers through,<br>in the circle of life's rhyme.
- </div>
-      <div id="SexTalk2"> User data, a river that sings,<br> A language of nature, not just for kings.</div>
+         <div id="SexTalk"> </div>
+      <div id="SexTalk2"></div>
         
         
-        <div id="instruction"> A serpent of the cyber world, resides in the vast expanses of the internet. Move your cursor or click to make it show itself.</div>
+        <div id="instruction"> Tap and hold anywhere on the screen, then move your finger to form a serpent. </div>
         
        
         </div>
@@ -123,15 +122,28 @@ function reloadEverything(){
                    netSpeed = speedBits;
                   
                     
-                     networkSpeed = clamp( netSpeed, 0.5 , 3);
+                   //  networkSpeed = clamp( netSpeed, 2 , 3);
 
-                    
+                   networkSpeed = modify( speedBits )
                 }
                 
                 
                 
-                       
                 
+                       
+         function modify( speed ){
+             
+             let a = 2.5; // speed max
+             let b = 0.3; // speed min
+             
+             let c = 0.01; // min Range
+             let d = 1; // max Range
+             
+             return a + ( b-a )/ (d-c)*( speed - c)
+             
+             
+             
+         }       
                 
                 
       //  var netSpeed = navigator.connection.downlink;
@@ -320,7 +332,8 @@ scene.add( plane );
             
             loader.load( imagesURL ,function(texture){
                 
-                let w = 350 + generateRandomNumber (100);
+                let w = 250 + generateRandomNumber (100);
+                
          let  cloudGeo = new THREE.PlaneBufferGeometry( w,w );
         let    cloudMaterial = new THREE.MeshLambertMaterial({
                 map:texture,
@@ -446,31 +459,7 @@ function clamp(number, min, max) {
                 previousX= window.innerWidth/2;
                 previousY= window.innerHeight/2;
                 
-            canvas.addEventListener('mouseover', ev=> mouse_position(ev));
-                
-                function mouse_position(e){
-                    
-                    previousX  = e.x;
-                    previousY = e.y;  
-                    
-                    
-                    
-                       mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
-	mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
-            
-                  raycaster.setFromCamera( mouse, camera );
-
-	// calculate objects intersecting the picking ray
-	const intersects = raycaster.intersectObject( plane );
-            let vvvv= new THREE.Vector3(mouse.x,mouse.y)
-	if(intersects[ 0 ]){ cloudCenter = intersects[0].point; }
-
-                    
-                    
-                    
-                    
-                }
-                                    
+                 
                                     
                                     
     
@@ -569,6 +558,7 @@ const mouse = new THREE.Vector2();
                 
                 
                  function onTouchMove( e ){
+                    
             
              
        // console.log(e.touches[0].pageX,e.touches[0].pageY);
@@ -654,7 +644,8 @@ const mouse = new THREE.Vector2();
     c.addEventListener('touchmove', ev=>{
         
         onTouchMove(ev);
-        
+            instruction.innerHTML = "The cloud serpent is forming...";
+
            
      mouse.x = ( event.touches[0].pageX / window.innerWidth ) * 2 - 1;
 	mouse.y = - ( event.touches[0].pageY / window.innerHeight ) * 2 + 1;
@@ -664,6 +655,10 @@ const mouse = new THREE.Vector2();
 	// calculate objects intersecting the picking ray
 	const intersects = raycaster.intersectObject( plane );
             let vvvv= new THREE.Vector3(mouse.x,mouse.y)
+            
+                        console.log( intersects );
+
+        
 	if(intersects[ 0 ]){ cloudCenter = intersects[0].point; }
         
         
@@ -671,7 +666,10 @@ const mouse = new THREE.Vector2();
         
     })            
                 
-        
+    c.addEventListener('touchend', ev=>{
+      instruction.innerHTML = "Tap and hold anywhere on the screen, then move your finger to form a serpent.";
+
+    })
        
                 
   
@@ -764,6 +762,9 @@ function backgroundchange( enabled ){
     
 
     if (enabled){
+        
+            instruction.innerHTML = "While holding, move your finger across the screen to guide its movement";
+
         
          switch(Math.floor(Math.random() * 4)){
            
@@ -1199,7 +1200,6 @@ function backgroundchange( enabled ){
                 
                    SexTalk2.innerHTML=  "It's a dance of light and shadow,<br> a tale of modern lore,<br>Of a creature born of data,<br> that moves like a snake evermore."
                 
-                     instruction.innerHTML = "The serpent is forming...";
 
             }            
                                   
@@ -1214,7 +1214,7 @@ function backgroundchange( enabled ){
                 
                 
         
-                console.log("Reclouded");
+        //        console.log("Reclouded");
 
         
             }
@@ -1232,7 +1232,6 @@ function backgroundchange( enabled ){
                          textFlag=0;
                         // reset angularSpeed
                         angularSpeed=0.00001;
-                        instruction.innerHTML = "A serpent of the cyber world, resides in the vast expanses of the internet. Move your cursor or click to make it show itself";
 
 
                      }
