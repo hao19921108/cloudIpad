@@ -14,16 +14,17 @@
 	<body>
          
         
-        
+         <div class="UI">    
+   
         
       <div class="row">
           <div id = "leftbox">User Data: <label>0 </label> Pixels</div>
-          <div id = "middlebox">Cloud Rate: <label >15 </label>  ,Speed:<label>5</label> MBPS</div>
-          <div id = "rightbox">Clicks: <label>0</label></div>
+          <div id = "middlebox">Cloud Rate: <span >15</span>, Speed: <span> -- </span> mbps</div>
+          <div id = "rightbox">Taps: <label>0</label></div>
 </div>
         
         
-    
+
         
        
         
@@ -45,7 +46,7 @@
         <div id="instruction"> A serpent of the cyber world, resides in the vast expanses of the internet. Move your cursor or click to make it show itself.</div>
         
        
-        
+        </div>
         
         
         
@@ -69,8 +70,65 @@ function reloadEverything(){
 
 }
                 
- let reloadExperience = setInterval(reloadEverything,5000);
+ // let reloadExperience = setInterval(reloadEverything,50000);
+                
+                
+                
+                
+        // javascript trick to detect internet speed by loading an image
+                var startTime = new Date().getTime();
+                var img = new Image();
+                
+                
+                
+                
+                img.onload = async function(){
+                    var loadtime = new Date().getTime() - startTime ;
+                    
+//                    calculateSpeed();      
+                    
+                    
+                    let timeDuration = loadtime / 1000;
+                    
+            
+                   checkConnectionSpeed(timeDuration);
+                }
+                
+                img.src ="https://media.gq.com/photos/56bb8a91b89407780bd7d454/16:9/w_2240,c_limit/bieber-16-9-longform.jpg";
+                
 
+                
+               
+                
+                
+                    
+                    function bytesToMB(bytes) {
+  return bytes / (1024 * 1024); // 1MB = 1024 * 1024 bytes
+}
+                    
+                
+                function checkConnectionSpeed(timeDuration){
+                    
+                      
+                    let loadedBits= 86420;
+                    let megabytes = bytesToMB (loadedBits);
+                    
+                    console.log("MB: "+ megabytes);
+                    let speedBits =  ( megabytes /  timeDuration ).toFixed(2);
+                    
+                    
+                    //  leftbox.innerHTML= speedBits.toFixed(2) ;
+                    
+                     middlebox.innerHTML= "Cloud Rate: <span>"+cloudNumber+" </span>, Speed: <span>"+ speedBits +"</span> mbps";
+                   netSpeed = speedBits;
+                  
+                    
+                     networkSpeed = clamp( netSpeed, 0.5 , 3);
+
+                    
+                }
+                
+                
                 
                        
                 
@@ -79,15 +137,17 @@ function reloadEverything(){
       //  var netSpeed = navigator.connection.downlink;
                 
                 
-                        var netSpeed = 4;
+                        var netSpeed = "--";
 
                 
               //  var networkSpeed = 10; // ideal network range 0.5 - 5                 
                 
      var imageWidth = "'360px'";
                 
-                var networkSpeed = clamp( netSpeed, 0.5 , 3);
-    
+                
+                
+                var networkSpeed = 1;
+
             
        
                 
@@ -104,26 +164,26 @@ function reloadEverything(){
     
  
             var SexTalk_Array = [
-                "In the digital realm, where bits and bytes collide,<br>Lurks a creature of the web, a beast of data's pride.",
-               "Chasing cursors, it slithers, a silent, unseen guest,<br>Feeding on the trails of light that users leave expressed.",
+                "In the digital realm,<br> where bits and bytes collide,<br>Lurks a creature of the web, a beast of data's pride.",
+               "Chasing cursors, it slithers,<br> a silent, unseen guest,<br>Feeding on the trails of light that users leave expressed.",
                 "Slithers through,<br>in the circle of life's rhyme.",
-                "But when the mouse moves fast, and keys begin to dance, <br>The Datavore transforms, a tempest in its glance.",
-                "Its form shifts, expands, a storm of pixels and light, <br>Chasing the swift mouse, in pursuit day and night.",
-                "It dances with the data, a waltz of ones and zeros,<br>A predator of the virtual, a consumer of heroes.",
-                "In the browser's vast expanse, it weaves its intricate tale,<br>A guardian of secrets, a keeper of the veil.",
-                "It thrives on user stories, on whispers and on cries,<br>A spectral snake in the grass, with glowing eyes.",
-                "It's in the shadows it waits, in the data it resides,<br>A constant reminder of the digital tides.",
+                "But when the mouse moves fast,<br> and keys begin to dance, <br>The Datavore transforms,<br> a tempest in its glance.",
+                "Its form shifts, expands,<br> a storm of pixels and light, <br>Chasing the swift mouse,<br> in pursuit day and night.",
+                "It dances with the data,<br> a waltz of ones and zeros,<br>A predator of the virtual,<br> a consumer of heroes.",
+                "In the browser's vast expanse,<br> it weaves its intricate tale,<br>A guardian of secrets, a keeper of the veil.",
+                "It thrives on user stories,<br> on whispers and on cries,<br>A spectral snake in the grass, <br>with glowing eyes.",
+                "It's in the shadows it waits,<br> in the data it resides,<br>A constant reminder of the digital tides.",
             ]
             
             
             var SexTalk2_Array= [
                 "In the silence of bytes, it finds its delight,<br>Feeding on data, both day and night.",
                 "It waits in the browser, a silent guest,<br>Watching the pixels, the users' behest.",
-                "With every keystroke, it quietly stirs,<br>A guardian of secrets, it murmurs and purrs.",
-                "Like a snake in the grass, it coils and it slithers,<br>Through the veins of the web, it navigates with quivers.",
-                "In the silence of bytes, it finds its delight,<br>Feeding on data, both day and night.",
-                "When the cursor moves swift, it springs to the chase,<br>A dance with the user, a wild, digital race.",
-                "It morphs with each action, a chameleon of sorts,<br>Adapting, evolving, it never resorts.",
+                "With every keystroke,<br> it quietly stirs,<br>A guardian of secrets, it murmurs and purrs.",
+                "Like a snake in the grass,<br> it coils and it slithers,<br>Through the veins of the web, it navigates with quivers.",
+                "In the silence of bytes,<br> it finds its delight,<br>Feeding on data, both day and night.",
+                "When the cursor moves swift,<br> it springs to the chase,<br>A dance with the user, a wild, digital race.",
+                "It morphs with each action,<br> a chameleon of sorts,<br>Adapting, evolving, it never resorts.",
                 
                                 ]
             
@@ -572,7 +632,7 @@ const mouse = new THREE.Vector2();
               previousX = e.touches[0].pageX;
             previousY = e.touches[0].pageY;
             
-                 leftbox.innerHTML="User movement: <label>"+ mouseamount.toFixed(2) + "</label> Pixels";
+                 leftbox.innerHTML="User Data: <label>"+ mouseamount.toFixed(2) + "</label> Pixels";
 
 
             
@@ -997,7 +1057,7 @@ function backgroundchange( enabled ){
                 }
                 
                 
-                 middlebox.innerHTML= "Cloud rate: <label>"+cloudNumber+" </label>, Speed: <label>"+ netSpeed +"</label> mbps";
+                     middlebox.innerHTML= "Cloud Rate: <span>"+cloudNumber+" </span>, Speed: <span>"+ netSpeed +"</span> mbps";
               
                 
                 
@@ -1137,7 +1197,7 @@ function backgroundchange( enabled ){
                 
 
                 
-                   SexTalk2.innerHTML=  "It's a dance of light and shadow, a tale of modern lore,<br>Of a creature born of data, that moves like a snake evermore."
+                   SexTalk2.innerHTML=  "It's a dance of light and shadow,<br> a tale of modern lore,<br>Of a creature born of data,<br> that moves like a snake evermore."
                 
                      instruction.innerHTML = "The serpent is forming...";
 

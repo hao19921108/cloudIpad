@@ -1,17 +1,13 @@
 
 
 
-#beian #number{
-    position: absolute;
-   
-        text-align: right;
-
-
+.UI{
+    z-index: 100;
+    position: fixed;
+    
 }
 
-#beian a{
-    color: #9b9b9b;
-}
+
 
 
 body{
