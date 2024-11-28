@@ -564,11 +564,11 @@ const mouse = new THREE.Vector2();
             
                 if( substract >3 ){ 
                     mouseMovement+= substract;
-                    userinformation.innerHTML= "You moved left "+substract.toFixed(2) +' Pixels'; 
+                    userinformation.innerHTML= "You moved left "+substract.toFixed(0) +' Pixels'; 
                 }
             if( substract <-3){ 
                  mouseMovement+= (-1* substract);
-                userinformation.innerHTML = "You Moved right "+-1*substract.toFixed(2)+' Pixels'; 
+                userinformation.innerHTML = "You Moved right "+-1*substract.toFixed(0)+' Pixels'; 
 
                          //        cloudArray.forEach(p=>{p.rotation.z +=(-0.01*(substract))});
 
@@ -577,13 +577,13 @@ const mouse = new THREE.Vector2();
             if(verticalSubstract>3){
                      mouseMovement+= verticalSubstract;
 
-                  userinformation.innerHTML = "You moved up "+verticalSubstract.toFixed(2) +' Pixels'; 
+                  userinformation.innerHTML = "You moved up "+verticalSubstract.toFixed(0) +' Pixels'; 
                 
             }
             if(verticalSubstract<-3){
                                  mouseMovement+= (-1* verticalSubstract);
 
-                      userinformation.innerHTML = "You moved down "+-1*verticalSubstract.toFixed(2) +' Pixels'; 
+                      userinformation.innerHTML = "You moved down "+-1*verticalSubstract.toFixed() +' Pixels'; 
                 
             }
             
@@ -1091,15 +1091,15 @@ function backgroundchange( enabled ){
                     
                      if ( mouseamount > 2.55){        mouseamount = mouseamount - 2.5; }              
 
-                     if (mouseamount > 1000){ 
+                     if (mouseamount > mouseThreshold / 20 ){ 
                          
                          
                    //      myTween.play();
-                         mouseamount = mouseamount - 20; 
+                         mouseamount = mouseamount - 10; 
                      
                      
                      }
-                    if(mouseamount < 1000 && mouseamount >100){ //myTween.pause();
+                    if(mouseamount  < mouseThreshold && mouseamount >  mouseThreshold / 20 ){ //myTween.pause();
                                           
                          mouseamount = mouseamount - 20;                       
                         
@@ -1110,7 +1110,7 @@ function backgroundchange( enabled ){
                     if ( mouseamount > 10000){        mouseamount = mouseamount - 250; }  
                     
                     
-                     if(mouseamount< 5000 && mouseamount> 1000){
+                     if(mouseamount< 5000 && mouseamount> mouseThreshold ){
                         
                        // angularSpeed=0.00001;                        
                         mouseamount = mouseamount - 50; 
