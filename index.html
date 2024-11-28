@@ -1101,9 +1101,15 @@ function backgroundchange( enabled ){
                      
                      
                      }
-                    if(mouseamount  < mouseThreshold * 1.3  &&  mouseamount >  mouseThreshold / 2 ){ //myTween.pause();
+                    if(mouseamount  < mouseThreshold   &&  mouseamount >  mouseThreshold / 2 ){ //myTween.pause();
                                           
                          mouseamount = mouseamount - 10;                       
+                        
+                     }
+                    
+                     if(mouseamount  < mouseThreshold * 1.3  &&  mouseamount >  mouseThreshold  ){ //myTween.pause();
+                                          
+                         mouseamount = mouseamount - 5;                       
                         
                      }
                     
