@@ -384,10 +384,10 @@ scene.add( plane );
                 
         
         
-        let cloudRate= 75;
+        let cloudRate= 50 + generateRandomeIndex (30);
         let assetNumber = 5;  // assets of cloud img.  needs to be updates
     
-        let cloudNumber = 15; // 4- 40 
+        let cloudNumber = 10 + generateRandomeIndex (20) ; // 4- 40 
         let reCloud_Array = [];
         let weight_Array = [];
 
@@ -436,7 +436,7 @@ function clamp(number, min, max) {
             for(let p=0; p< cloudNumber ; p++){
                
                
-                posX=Math.random()*1000-500; // -500 ~ 500 mid 0
+                posX=Math.random()*600-300; // -500 ~ 500 mid 0
                  posY= Math.random()*300+200; // 390 ~ 490 mid 440
 
                  posZ= -50 - p*Math.random()*100 ; // -500 ~ 0   min -250
