@@ -829,6 +829,8 @@ function backgroundchange( enabled ){
                 let joints_Array =[];
                  let reCloud = 0;
                 
+                let distanceLimit = 150;
+                let distanceLimit_far = 250;
                 
 
                 
@@ -922,8 +924,8 @@ function backgroundchange( enabled ){
                        
                    //    if(head_distance > 250 ) {generalSpeed = 20 * networkSpeed / 2  ; }else{generalSpeed = 10 * networkSpeed / 2 ;}
                        
-                       if(head_distance > 250 ) { 
-                           if(head_distance>400){ generalSpeed = 20 ; }
+                       if(head_distance > distanceLimit  ) { 
+                           if(head_distance> distanceLimit_far ){ generalSpeed = 20 ; }
                            generalSpeed = 20 * networkSpeed / 2 ; }
                     else{generalSpeed = generalSpeed = 10 * networkSpeed / 2 ;}
                  
@@ -1031,8 +1033,8 @@ function backgroundchange( enabled ){
                         
                        
                        
-                       if(head_distance > 250 ) { 
-                           if(head_distance>400){ generalSpeed = 20 ; }
+                       if(head_distance > distanceLimit ) { 
+                           if(head_distance> distanceLimit_far){ generalSpeed = 20 ; }
                            generalSpeed = 20 * networkSpeed / 2 ; }
                     else{generalSpeed = generalSpeed = 10 * networkSpeed / 2 ;}
                        
