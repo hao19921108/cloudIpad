@@ -26,9 +26,15 @@
         
 
         
-       
+       <div id="myProgress">
+  <div id="myBar"></div>
+</div>
         
-       
+           <div id="TapProgress">
+  <div id="TapBar"></div>
+</div>
+        
+             
         
         <div id="container">
                 <div id="userinformation">"I Need Your Data."</div>
@@ -42,7 +48,7 @@
       <div id="SexTalk2"></div>
         
         
-        <div id="instruction"> Tap and hold anywhere on the screen, then move your finger to form a serpent. </div>
+        <div id="instruction"> Tap and hold anywhere on the screen, then move your finger. </div>
         
        
         </div>
@@ -206,7 +212,10 @@ function reloadEverything(){
          var leftbox = document.getElementById('leftbox'); 
          var middlebox = document.getElementById('middlebox'); 
          var rightbox = document.getElementById('rightbox'); 
-        var SexTalk = document.getElementById('SexTalk');   
+        var SexTalk = document.getElementById('SexTalk');  
+            var myBar = document.getElementById('myBar');
+      //      var tapBar = document.getElementById('TapBar');
+
             
                 var instruction = document.getElementById('instruction');   
 
@@ -475,7 +484,7 @@ let sum='';
            
   
                 
-                
+              /*  
                 
                 
 function setupKeyControls() {
@@ -507,7 +516,7 @@ function setupKeyControls() {
 
  setupKeyControls();
                 
-                  
+                  */
                 
                 
                 
@@ -560,14 +569,15 @@ const mouse = new THREE.Vector2();
                 
                  function onTouchMove( e ){
                     
-            
+                     
+
              
        // console.log(e.touches[0].pageX,e.touches[0].pageY);
             
             clearTimeout(timeout);
             reCloud = 0; 
             
-    timeout = setTimeout(function(){  if(1){userinformation.innerHTML = AI_text[generateRandomeIndex(AI_text.length)];  reGenereateCloud(cloudNumber); 
+    timeout = setTimeout(function(){  if(1){userinformation.innerHTML = AI_text[generateRandomeIndex(AI_text.length)];  reGenereateCloud(cloudNumber); console.log("Cloud Regenerated");
  }}, 2000);
 
               
@@ -623,7 +633,7 @@ const mouse = new THREE.Vector2();
               previousX = e.touches[0].pageX;
             previousY = e.touches[0].pageY;
             
-                 leftbox.innerHTML="User Data: <label>"+ mouseamount.toFixed(2) + "</label> Pixels";
+        //         leftbox.innerHTML="User Data: <label>"+ mouseamount.toFixed(2) + "</label> Pixels";
 
 
             
@@ -645,7 +655,7 @@ const mouse = new THREE.Vector2();
     c.addEventListener('touchmove', ev=>{
         
         onTouchMove(ev);
-            instruction.innerHTML = "The cloud serpent is forming...";
+            instruction.innerHTML = "The cloud serpent is forming...Please continue move your finger.";
 
            
      mouse.x = ( event.touches[0].pageX / window.innerWidth ) * 2 - 1;
@@ -657,7 +667,7 @@ const mouse = new THREE.Vector2();
 	const intersects = raycaster.intersectObject( plane );
             let vvvv= new THREE.Vector3(mouse.x,mouse.y)
             
-                        console.log( intersects );
+            //            console.log( intersects );
 
         
 	if(intersects[ 0 ]){ cloudCenter = intersects[0].point; }
@@ -668,14 +678,60 @@ const mouse = new THREE.Vector2();
     })            
                 
     c.addEventListener('touchend', ev=>{
-      instruction.innerHTML = "Tap and hold anywhere on the screen, then move your finger to form a serpent.";
-
+        
+        instruction.innerHTML = "Tap and hold anywhere on the screen, then move your finger.";
     })
        
                 
   
     
-     
+    
+    
+    
+    
+    
+    window.addEventListener('click', ev => {
+         
+          clickes++;
+          
+         rightbox.innerHTML="Taps: "+ clickes;
+          
+         userinformation.innerHTML = "Tap at : ( " + ev.x +' px, '+ev.y+'px )'; 
+
+          clickAmount+=2;
+          
+          
+                  mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+	mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+            
+                  raycaster.setFromCamera( mouse, camera );
+
+	// calculate objects intersecting the picking ray
+	const intersects = raycaster.intersectObject( plane );
+            let vvvv= new THREE.Vector3(mouse.x,mouse.y)
+	if(intersects[ 0 ]){
+     //   console.log(intersects[0].point); 
+        cloudCenter = intersects[0].point; }
+
+         
+     })
+    
+    
+    
+   
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    // set up background color based on current Time & location
+    
+    
+    
      let fogamount=0;
                 
                 let p=0.2;
@@ -764,7 +820,7 @@ function backgroundchange( enabled ){
 
     if (enabled){
         
-            instruction.innerHTML = "While holding, move your finger across the screen to guide its movement";
+            instruction.innerHTML = "The serpent is alive.";
 
         
          switch(Math.floor(Math.random() * 4)){
@@ -806,7 +862,7 @@ function backgroundchange( enabled ){
                 let snakeCreated = 0 ;
                 
                 let generalSpeed = 2.5;
-                
+                let clickThreshold = 20; 
                 
                 
                 let joints_Array =[];
@@ -968,7 +1024,7 @@ function backgroundchange( enabled ){
 
     
                              
-                     if(reCloud){ moveSpeed = 1 * networkSpeed / 5  } else{ moveSpeed = generalSpeed * networkSpeed /2  * (cloudNumber - i)/cloudNumber }
+                     if(reCloud){ moveSpeed = 1 * networkSpeed * (cloudNumber - i)/cloudNumber /5 } else{ moveSpeed = generalSpeed * networkSpeed /2  * (cloudNumber - i)/cloudNumber }
         
                              
                      let modified_Position = moveTowards( currentPosition , jointPosition , moveSpeed );
@@ -1138,7 +1194,12 @@ function backgroundchange( enabled ){
                     
                     updateNumber( );          
                     
+                    myBar.style.width = ( mouseamount / 10000 * 100 ).toFixed(2) + "%";
+               //     tapBar.style.width = ( clickAmount / clickThreshold /2 * 100 ).toFixed(2) + "%";
                     
+                     leftbox.innerHTML="User Data: <label>"+ mouseamount.toFixed(0) + "</label> Pixels";
+
+ 
                     
                    //             document.getElementById("userdata").scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"});
 
@@ -1148,8 +1209,22 @@ function backgroundchange( enabled ){
                     
             //        console.log(mouseamount);
                     
-                    if(mouseamount>5000){
+                    if( mouseamount>5000 || clickAmount > clickThreshold ){
+                        
+                         if(mouseamount > 8000){
+                      myBar.style.backgroundColor = "#FF11D7";
                     
+             //       tapBar.style.backgroundColor = "#FF11D7";
+
+
+                         }else{
+                        myBar.style.backgroundColor = "#FF6A13";
+               //         tapBar.style.backgroundColor = "#FF6A13";
+     
+                         }
+                        
+                    
+                        
                         backgroundchange( !reCloud );
                         
                         dick = 1;
@@ -1224,6 +1299,26 @@ function backgroundchange( enabled ){
            
                     }else{
                         
+                        
+                         if(reCloud){
+                            
+                            
+              AssetstoJoints(cloudPosition, reCloud_Array , 1);  
+         //       middlebox.innerHTML= "<label>Decaying...</label>";
+                
+                
+        
+        //        console.log("Reclouded");
+
+        
+            }
+                        
+                        
+                        
+                          myBar.style.backgroundColor = "#45FE54";
+
+//                             tapBar.style.backgroundColor = "#391AFF";
+
                        scene.background=initial;
                          
                          dick = -1;
@@ -1233,6 +1328,8 @@ function backgroundchange( enabled ){
                          textFlag=0;
                         // reset angularSpeed
                         angularSpeed=0.00001;
+                        
+                        
 
 
                      }
@@ -1241,7 +1338,8 @@ function backgroundchange( enabled ){
                     
                     if (preDick == 1 && dick == -1){
                         
-                        
+                         instruction.innerHTML = "Tap and hold anywhere on the screen, then move your finger.";
+
                
                     }
                     
@@ -1263,7 +1361,7 @@ function backgroundchange( enabled ){
                     
   // new rotate speed
                     let q =0;
-    cloudArray.forEach(p=>{ ; p.rotation.z +=(0.00015+ typeSpeed*typeAmount + clickSpeed * clickAmount + angularSpeed * weight_Array[q] * (cloudNumber - q+1) / cloudNumber *mouseamount*Math.random(0.01,2)); q++; });
+    cloudArray.forEach(p=>{ ; p.rotation.z +=(0.00015+ typeSpeed*typeAmount + clickSpeed * clickAmount* weight_Array[q]  * (cloudNumber - q+1) / cloudNumber + angularSpeed * weight_Array[q] * (cloudNumber - q+1) / cloudNumber *mouseamount*Math.random(0.01,2)); q++; });
                     
                     
              //     console.log(mouseamount);
