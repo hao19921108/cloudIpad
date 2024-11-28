@@ -1091,7 +1091,7 @@ function backgroundchange( enabled ){
                     
                      if ( mouseamount > 2.55){        mouseamount = mouseamount - 2.5; }              
 
-                     if (mouseamount > mouseThreshold / 20 ){ 
+                     if (mouseamount > mouseThreshold / 2 ){ 
                          
                          
                    //      myTween.play();
@@ -1099,7 +1099,7 @@ function backgroundchange( enabled ){
                      
                      
                      }
-                    if(mouseamount  < mouseThreshold && mouseamount >  mouseThreshold / 20 ){ //myTween.pause();
+                    if(mouseamount  < mouseThreshold * 1.2  &&  mouseamount >  mouseThreshold / 2 ){ //myTween.pause();
                                           
                          mouseamount = mouseamount - 20;                       
                         
@@ -1110,7 +1110,7 @@ function backgroundchange( enabled ){
                     if ( mouseamount > 10000){        mouseamount = mouseamount - 250; }  
                     
                     
-                     if(mouseamount< 5000 && mouseamount> mouseThreshold ){
+                     if(mouseamount< 5000 && mouseamount> mouseThreshold * 1.2 ){
                         
                        // angularSpeed=0.00001;                        
                         mouseamount = mouseamount - 50; 
