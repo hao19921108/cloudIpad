@@ -73,7 +73,7 @@ function reloadEverything(){
 
 }
                 
- // let reloadExperience = setInterval(reloadEverything,50000);
+  let reloadExperience = setInterval(reloadEverything,3600000);
                 
                 
                 
@@ -339,7 +339,7 @@ scene.add( plane );
             
             loader.load( imagesURL ,function(texture){
                 
-                let w = 250 + generateRandomNumber (100);
+                let w = 200 + generateRandomNumber (150);
                 
          let  cloudGeo = new THREE.PlaneBufferGeometry( w,w );
         let    cloudMaterial = new THREE.MeshLambertMaterial({
@@ -351,7 +351,7 @@ scene.add( plane );
                
                  cloud = new THREE.Mesh(cloudGeo,cloudMaterial);
                
-                posX=Math.random()*1000-500; // -500 ~ 500 mid 0
+                posX=Math.random()*500-250; // -500 ~ 500 mid 0
                  posY= Math.random()*200+200; // 390 ~ 490 mid 440
 
                  posZ= -120 - p*50 ; // -500 ~ 0   min -250
@@ -436,10 +436,10 @@ function clamp(number, min, max) {
             for(let p=0; p< cloudNumber ; p++){
                
                
-                posX=Math.random()*2000-1000; // -500 ~ 500 mid 0
-                 posY= Math.random()*200+200; // 390 ~ 490 mid 440
+                posX=Math.random()*1000-500; // -500 ~ 500 mid 0
+                 posY= Math.random()*300+200; // 390 ~ 490 mid 440
 
-                 posZ= 0 - p*Math.random()*100 ; // -500 ~ 0   min -250
+                 posZ= -50 - p*Math.random()*100 ; // -500 ~ 0   min -250
 
                reCloud_Array.push(posX);
                 reCloud_Array.push(posY);
