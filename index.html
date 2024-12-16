@@ -128,7 +128,7 @@ function reloadEverything(){
                     
                    //  networkSpeed = clamp( netSpeed, 2 , 3);
 
-                   networkSpeed = modify( speedBits )
+                   networkSpeed = modify( speedBits ) * 1.5;
                 }
                 
                 
@@ -266,16 +266,16 @@ function reloadEverything(){
                 scene.add(directionalLight);
                 
                 
-                let orangeLight = new THREE.PointLight(0xcc6600,90,470,1.7);
+                let orangeLight = new THREE.PointLight(0xcc6600,50,470,1.7);
                 
     //                    let orangeLight = new THREE.PointLight(0xcc6600,50,450,1.7);
-           //     orangeLight.intensity = 80;
+               orangeLight.intensity = sunlightIntensity;
                 orangeLight.position.set(200,300,300);
                 scene.add(orangeLight);
                 
                  let redLight = new THREE.PointLight(0xd8547e,90,470,1.7);
       //              let redLight = new THREE.PointLight(0xd8547e,50,450,1.7);
-              //  redLight.intensity = 80;
+               redLight.intensity = sunlightIntensity;
                 redLight.position.set(100,300,300);
                scene.add(redLight);
                 
@@ -720,6 +720,8 @@ const mouse = new THREE.Vector2();
                 console.log( sunsetTime , sunriseTime)
                 
       var initial= dayColorUpdate( day_color,  night_color , currentTime , sunriseTime , sunsetTime );  // light
+     var sunlightIntensity = lightUpdate(currentTime , sunriseTime , sunsetTime);
+                
   //      var initial = day_color;
                 
                 let bloodColor = new THREE.Color(0x535353);    
@@ -735,12 +737,37 @@ const mouse = new THREE.Vector2();
                             
     var currentColor = scene.background;
 
+     function lerp( a, b, alpha ) {
+ return a + alpha * ( b — a )
+}
                
            
+function lightUpdate(currentTime , sunriseTime , sunsetTime){
+    
+    
+    if ( currentTime < sunriseTime || currentTime > sunsetTime ){
+        
+            return 50;
 
+        
+
+        
+    }else{
+        //daytime
+        var midTime = (sunriseTime + sunsetTime )/2
+        
+      return lerp(50,90, Math.abs( currentTime - midTime)/(sunsetTime-sunriseTime) );
+
+        
+    }
+    
+    
+    
+}
                 
                 
-// update color per hour            
+// update color per hour                            
+                  
 function dayColorUpdate( dayColor, nightColor, currentTime , sunriseTime, sunsetTime){
     
   
