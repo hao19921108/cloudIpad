@@ -231,6 +231,7 @@ function reloadEverything(){
                 let cloudPosition=[],posX,posY,posZ, timer =0;
                 let distance =0; // distance between each cloud to cloud center
 //                 clock = new THREE.Clock();
+     var currentTime = new Date().getHours();
 
                     
                  let cloudCenter = new THREE.Vector3( 0, 440 , -250);
@@ -244,14 +245,53 @@ function reloadEverything(){
                      const canvas = document.querySelector('#c');
                 
                    clickSpeed=0.001; angularSpeed=0.00001; typeSpeed = 0.0001;
+                               
                 
-                    
                     scene = new THREE.Scene();
                     camera = new THREE.PerspectiveCamera(60, window.innerWidth/window.innerHeight,1,2000);
                 
 			camera.position.z = 5;
                     camera.rotation.set(1.16,-0.12,0.27);
 
+                
+                
+   
+                    var sunsetTime = 17;
+        var sunriseTime = 6;
+                     var sunlightIntensity = lightUpdate( currentTime , sunriseTime , sunsetTime);
+
+function mathLerp(a,b,alpha){
+ return a + alpha * (b-a);
+     }
+               
+           
+function lightUpdate(currentTime , sunriseTime , sunsetTime){
+    
+    
+    if ( currentTime < sunriseTime || currentTime > sunsetTime ){
+        
+            return 45;
+
+        
+    }else{
+        //daytime
+        var midTime = (sunriseTime + sunsetTime )/2
+        
+      return 45 + (1-Math.abs( currentTime - midTime)/(sunsetTime-sunriseTime))*(90-45)
+
+        
+    }
+    
+    
+    
+}
+                            
+                
+                
+                
+                
+                
+                
                 
                let ambient = new THREE.AmbientLight(0xcecece);
                 
@@ -708,9 +748,8 @@ const mouse = new THREE.Vector2();
            var finalColor = new THREE.Color(); // store updatedDaytimeColor
     var neutral_color= new THREE.Color(0x959595);  // neutral color
        
-        var sunsetTime = 17;
-        var sunriseTime = 6;
-     var currentTime = new Date().getHours();
+    
+  //   var currentTime = new Date().getHours();
                 
     
     
@@ -720,7 +759,6 @@ const mouse = new THREE.Vector2();
                 console.log( sunsetTime , sunriseTime)
                 
       var initial= dayColorUpdate( day_color,  night_color , currentTime , sunriseTime , sunsetTime );  // light
-     var sunlightIntensity = lightUpdate(currentTime , sunriseTime , sunsetTime);
                 
   //      var initial = day_color;
                 
@@ -736,35 +774,7 @@ const mouse = new THREE.Vector2();
                    
                             
     var currentColor = scene.background;
-
-     function lerp( a, b, alpha ) {
- return a + alpha * ( b — a )
-}
-               
-           
-function lightUpdate(currentTime , sunriseTime , sunsetTime){
-    
-    
-    if ( currentTime < sunriseTime || currentTime > sunsetTime ){
-        
-            return 50;
-
-        
-
-        
-    }else{
-        //daytime
-        var midTime = (sunriseTime + sunsetTime )/2
-        
-      return lerp(50,90, Math.abs( currentTime - midTime)/(sunsetTime-sunriseTime) );
-
-        
-    }
-    
-    
-    
-}
-                
+ 
                 
 // update color per hour                            
                   
