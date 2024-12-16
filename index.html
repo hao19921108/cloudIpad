@@ -18,7 +18,7 @@
    
         
       <div class="row">
-          <div id = "leftbox">User Data: <label>0 </label> Pixels</div>
+          <div id = "leftbox">User Data: <span>0 </span> Pixels</div>
           <div id = "middlebox">Cloud Rate: <span >15</span>, Speed: <span> -- </span> mbps</div>
           <div id = "rightbox">Taps: <label>0</label></div>
 </div>
@@ -1206,7 +1206,7 @@ function backgroundchange( enabled ){
                     myBar.style.width = ( mouseamount / ( mouseThreshold *2) * 100 ).toFixed(2) + "%";
                //     tapBar.style.width = ( clickAmount / clickThreshold /2 * 100 ).toFixed(2) + "%";
                     
-                     leftbox.innerHTML="User Data: <label>"+ mouseamount.toFixed(0) + "</label> Pixels";
+                     leftbox.innerHTML="User Data: <span>"+ mouseamount.toFixed(0) + "</span> Pixels";
 
  
                     
