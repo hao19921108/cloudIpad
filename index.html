@@ -14,7 +14,7 @@
 	<body>
          
         
-         <div class="UI">    
+         <div class="UI" content="user-scalable=no">    
    
         
       <div class="row">
@@ -52,7 +52,7 @@
         
         
         
-         <canvas id="c"></canvas>
+         <canvas id="c"  content="user-scalable=no" ></canvas>
 
         
 
@@ -141,7 +141,7 @@ function reloadEverything(){
              let b = 0.3; // speed min
              
              let c = 0.01; // min Range
-             let d = 1; // max Range
+             let d = 0.5; // max Range
              
              return a + ( b-a )/ (d-c)*( speed - c)
              
@@ -266,14 +266,14 @@ function reloadEverything(){
                 scene.add(directionalLight);
                 
                 
-                let orangeLight = new THREE.PointLight(0xcc6600,50,470,1.7);
+                let orangeLight = new THREE.PointLight(0xcc6600,90,470,1.7);
                 
     //                    let orangeLight = new THREE.PointLight(0xcc6600,50,450,1.7);
            //     orangeLight.intensity = 80;
                 orangeLight.position.set(200,300,300);
                 scene.add(orangeLight);
                 
-                 let redLight = new THREE.PointLight(0xd8547e,50,470,1.7);
+                 let redLight = new THREE.PointLight(0xd8547e,90,470,1.7);
       //              let redLight = new THREE.PointLight(0xd8547e,50,450,1.7);
               //  redLight.intensity = 80;
                 redLight.position.set(100,300,300);
@@ -391,9 +391,11 @@ scene.add( plane );
         let reCloud_Array = [];
         let weight_Array = [];
 
-                let texture_Array = [ 'smoke.png', ' smoke01.png', 'smoke02.png', 'smoke.png', 'smoke04.png'];        
+                let texture_Array = [ ' smoke06.png',' smoke03.png',  ' smoke04.png',' smoke01.png', 'smoke02.png', 'cloud07.png','cloud09.png','cloud06.png'];        
   
+             assetNumber = texture_Array.length;   
                 
+                console.log(assetNumber);
                 
 function clamp(number, min, max) {
   return Math.max(min, Math.min(number, max));
