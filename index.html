@@ -128,7 +128,7 @@ function reloadEverything(){
                     
                    //  networkSpeed = clamp( netSpeed, 2 , 3);
 
-                   networkSpeed = modify( speedBits ) * 1.5;
+                   networkSpeed = modify( speedBits ) * 1.1;
                 }
                 
                 
@@ -1135,19 +1135,19 @@ function backgroundchange( enabled ){
                          
                          
                    //      myTween.play();
-                         mouseamount = mouseamount - 25; 
+                         mouseamount = mouseamount - 20; 
                      
                      
                      }
                     if(mouseamount  < mouseThreshold   &&  mouseamount >  mouseThreshold / 2 ){ //myTween.pause();
                                           
-                         mouseamount = mouseamount - 10;                       
+                         mouseamount = mouseamount - 8;                       
                         
                      }
                     
                      if(mouseamount  < mouseThreshold * 1.3  &&  mouseamount >  mouseThreshold  ){ //myTween.pause();
                                           
-                         mouseamount = mouseamount - 5;                       
+                         mouseamount = mouseamount - 3;                       
                         
                      }
                     
